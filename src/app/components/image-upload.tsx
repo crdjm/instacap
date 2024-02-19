@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const ImageUpload = () => {
   const [imageUrl, setImageUrl] = useState<string>(
-    "https://utfs.io/f/2d39ec6c-e59f-47ea-8526-984a00294813-2487m.jpg",
+    "https://utfs.io/f/264153b7-0920-4184-ab29-bce62a33e301-2487m.jpg",
   );
 
   const [caption, setCaption] = useState<string>("");

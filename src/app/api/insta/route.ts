@@ -20,7 +20,13 @@ export async function GET(request: Request) {
     return Response.json({ error: "No image url provided" });
   }
 
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY as string);
+  const gemini = process.env.GEMINI_KEY;
+
+  if (!gemini) {
+    return Response.json({ error: "No AI key defined" });
+  }
+
+  const genAI = new GoogleGenerativeAI(gemini);
   const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
   // const imageUrl = "Your URL here";
