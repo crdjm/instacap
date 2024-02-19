@@ -3,9 +3,25 @@
 import { UploadDropzone } from "@/utils/uploadthing";
 import Image from "next/image";
 import { useState } from "react";
+// import fetch from "node-fetch";
 
 const ImageUpload = () => {
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>(
+    "https://utfs.io/f/2d39ec6c-e59f-47ea-8526-984a00294813-2487m.jpg",
+  );
+
+  const [caption, setCaption] = useState<string>("");
+
+  const fetchData = async () => {
+    const req = await fetch("/api/insta?url=" + imageUrl);
+    const newData = await req.json();
+    return setCaption(newData.caption);
+  };
+
+  function handleClick() {
+    fetchData();
+  }
+
   return (
     <div>
       {/* <UploadButton */}
@@ -23,8 +39,17 @@ const ImageUpload = () => {
         }}
       />
       {imageUrl ? (
-        <div>
-          <Image src={imageUrl} alt="image" width={500} height={300} />
+        <div className="flex">
+          <Image src={imageUrl} alt="image" width={400} height={200} />
+          <div className="flex-row">
+            <button
+              className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+              onClick={handleClick}
+            >
+              Generate Instagram Caption
+            </button>
+            <div>{caption}</div>
+          </div>
         </div>
       ) : null}
     </div>
