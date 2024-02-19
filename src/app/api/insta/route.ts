@@ -14,6 +14,10 @@ function bufToGenerativePart(buf: string, mimeType: string) {
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+  if (!searchParams.get("url")) {
+    return Response.json({ error: "No image url provided" });
+  }
+
   const url = searchParams.get("url");
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY as string);
