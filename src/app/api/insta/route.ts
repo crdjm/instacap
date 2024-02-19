@@ -16,7 +16,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const url = searchParams.get("url");
 
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY);
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY as string);
   const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
   // const imageUrl = "Your URL here";
@@ -34,7 +34,7 @@ export async function GET(request: Request) {
     "Write a funny instagram caption including at most 10 hashtags";
 
   const result = await model.generateContent([ai_prompt, ...imageParts]);
-  const response = await result.response;
+  const response = result.response;
   const text = response.text();
 
   return Response.json({ caption: text });
