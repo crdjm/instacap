@@ -1,5 +1,7 @@
 import fetch from "node-fetch";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import sharp from "sharp";
+
 require("dotenv").config();
 
 function bufToGenerativePart(buf: string, mimeType: string) {
@@ -20,6 +22,11 @@ export async function GET(request: Request) {
     return Response.json({ error: "No image url provided" });
   }
 
+  const instaType = searchParams.get("instaType");
+  if (!instaType) {
+    return Response.json({ error: "No instaType provided" });
+  }
+
   const gemini = process.env.GEMINI_KEY;
 
   if (!gemini) {
@@ -33,15 +40,27 @@ export async function GET(request: Request) {
   const imageUrlData = await fetch(url);
 
   const buffer = await imageUrlData.arrayBuffer();
-  const stringifiedBuffer = Buffer.from(buffer).toString("base64");
+
+  const smaller = await sharp(buffer).resize(200).jpeg().toBuffer();
+
+  // const stringifiedBuffer = Buffer.from(buffer).toString("base64");
+  const stringifiedBuffer = Buffer.from(smaller).toString("base64");
   // const contentType = imageUrlData.headers.get("content-type");
   // const imageBase64 = `data:${contentType};base64,${stringifiedBuffer}`;
 
   const imageParts = [bufToGenerativePart(stringifiedBuffer, "image/jpeg")];
 
-  const ai_prompt =
-    // "Write an informative instagram caption with at most 10 hashtags";
-    "Write a funny instagram caption including at most 10 hashtags";
+  let ai_prompt =
+    /* instaType='informative' */
+    "Write an informative instagram caption including at most 10 hashtags. In your response, do not include any introductory text that isn't the caption or hashtags.";
+
+  if (instaType === "funny") {
+    ai_prompt =
+      "Write a funny instagram caption including at most 10 hashtags. In your response, do not include any introductory text that isn't the caption or hashtags.";
+  }
+  // "Write a long descriptive instagram caption including at most 10 hashtags. In your response, do not include any introductory text that isn't the caption or hashtags.";
+  // "Write a very short instagram caption including at most 10 hashtags. In your response, do not include any introductory text that isn't the caption or hashtags.";
+  // "Write alt text. In your response, do not include any introductory text that isn't the alt text.";
 
   const result = await model.generateContent([ai_prompt, ...imageParts]);
   const response = result.response;
