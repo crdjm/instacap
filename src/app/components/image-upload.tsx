@@ -13,9 +13,7 @@ const ImageUpload = () => {
   const [caption, setCaption] = useState<string>(
     "This is a sample image to experiment with generating captions. Upload your own image above.",
   );
-  const [buttonText, setButtonText] = useState<string>(
-    "Generate Instagram Caption",
-  );
+  const [buttonText, setButtonText] = useState<string>("Generate Caption");
 
   const [instaType, setInstaType] = useState<string>("funny");
 
@@ -24,13 +22,13 @@ const ImageUpload = () => {
       "/api/insta?url=" + imageUrl + "&instaType=" + instaType,
     );
     const newData = await req.json();
-    setButtonText("Generate Instagram Caption");
+    setButtonText("Generate Caption");
 
     return setCaption(newData.caption);
   };
 
   function handleClick() {
-    setButtonText("Generating caption...");
+    setButtonText("Generating...");
     setCaption("");
     fetchData();
   }
@@ -72,7 +70,7 @@ const ImageUpload = () => {
               >
                 {buttonText}
               </button>
-              <span className="grid grid-flow-col gap-0 text-sm">
+              <span className="grid grid-flow-col gap-1 text-sm">
                 <span>
                   <input
                     type="radio"
