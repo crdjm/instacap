@@ -71,9 +71,15 @@ export async function GET(request: Request) {
         "Write a long instagram caption including at most 10 hashtags. In your response, do not include any introductory text that isn't the caption or hashtags.";
     }
 
-    // "Write a long descriptive instagram caption including at most 10 hashtags. In your response, do not include any introductory text that isn't the caption or hashtags.";
-    // "Write a very short instagram caption including at most 10 hashtags. In your response, do not include any introductory text that isn't the caption or hashtags.";
-    // "Write alt text. In your response, do not include any introductory text that isn't the alt text.";
+    if (instaType === "uplifting") {
+      ai_prompt =
+        "Write an uplifting, inspirational instagram caption including at most 10 hashtags. In your response, do not include any introductory text that isn't the caption or hashtags.";
+    }
+
+    if (instaType === "alt") {
+      ai_prompt =
+        "Write alt text. In your response, do not include any introductory text that isn't the alt text.";
+    }
 
     const result = await model.generateContent([ai_prompt, ...imageParts]);
     const response = result.response;

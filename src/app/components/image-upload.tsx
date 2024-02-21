@@ -60,19 +60,19 @@ const ImageUpload = () => {
       </div>
 
       {imageUrl ? (
-        <div className="grid grid-flow-col gap-5">
-          {/* <Image src={imageUrl} alt="image" width={400} height={200} /> */}
-          <img src={imageUrl} alt="image" width={200} />
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-4">
+          {/* grid-flow-col <Image src={imageUrl} alt="image" width={400} height={200} /> */}
 
-          <div className="">
+          <div className="col-span-3">
             <div className="grid grid-flow-col gap-5">
               <button
-                className="rounded bg-blue-500 px-4 py-2 pr-5 font-bold text-white hover:bg-blue-700"
+                className="relative rounded bg-blue-500 px-4 py-2 pr-5 font-bold text-white hover:bg-blue-700"
                 onClick={handleClick}
                 disabled={imageUrl.length === 0}
               >
                 {buttonText}
               </button>
+
               <span>
                 <input
                   type="radio"
@@ -106,9 +106,33 @@ const ImageUpload = () => {
                 />
                 <label htmlFor="long">Long</label>
               </span>
+              <span>
+                <input
+                  type="radio"
+                  name="instaType"
+                  value="uplifting"
+                  id="uplifting"
+                  checked={instaType === "uplifting"}
+                  onChange={(e) => setInstaType(e.target.value)}
+                />
+                <label htmlFor="uplifting">Uplifting</label>
+              </span>
+
+              <span>
+                <input
+                  type="radio"
+                  name="instaType"
+                  value="alt"
+                  id="alt"
+                  checked={instaType === "alt"}
+                  onChange={(e) => setInstaType(e.target.value)}
+                />
+                <label htmlFor="alt">alt text</label>
+              </span>
             </div>
             <div className="size-fit justify-self-auto pt-5">{caption}</div>
           </div>
+          <img src={imageUrl} alt="image" width={200} />
         </div>
       ) : null}
     </div>
