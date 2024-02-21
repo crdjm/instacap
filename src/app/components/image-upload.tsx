@@ -62,7 +62,7 @@ const ImageUpload = () => {
       {imageUrl ? (
         <div className="grid grid-flow-col gap-5">
           {/* <Image src={imageUrl} alt="image" width={400} height={200} /> */}
-          <img src={imageUrl} alt="image" max-width={100} />
+          <img src={imageUrl} alt="image" width={200} />
 
           <div className="">
             <div className="grid grid-flow-col gap-5">
