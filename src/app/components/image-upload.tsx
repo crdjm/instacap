@@ -17,7 +17,7 @@ const ImageUpload = () => {
     "Generate Instagram Caption",
   );
 
-  const [instaType, setInstaType] = useState<string>("informative");
+  const [instaType, setInstaType] = useState<string>("funny");
 
   const fetchData = async () => {
     const req = await fetch(
@@ -37,7 +37,7 @@ const ImageUpload = () => {
 
   return (
     <div className="m-0 p-0">
-      <div className="flex justify-center py-5">
+      <div className="flex justify-center py-4">
         {/* <UploadButton */}
         <UploadDropzone
           appearance={{ container: { border: "1px solid black" } }}
@@ -64,7 +64,7 @@ const ImageUpload = () => {
           {/* grid-flow-col <Image src={imageUrl} alt="image" width={400} height={200} /> */}
 
           <div className="col-span-3">
-            <div className="grid grid-flow-col gap-5">
+            <div className="grid grid-flow-col gap-1">
               <button
                 className="relative rounded bg-blue-500 px-4 py-2 pr-5 font-bold text-white hover:bg-blue-700"
                 onClick={handleClick}
@@ -72,62 +72,63 @@ const ImageUpload = () => {
               >
                 {buttonText}
               </button>
+              <span className="grid grid-flow-col gap-0 text-sm">
+                <span>
+                  <input
+                    type="radio"
+                    name="instaType"
+                    value="funny"
+                    id="funny"
+                    checked={instaType === "funny"}
+                    onChange={(e) => setInstaType(e.target.value)}
+                  />
+                  <label htmlFor="funny">Funny</label>
+                </span>
+                <span>
+                  <input
+                    type="radio"
+                    name="instaType"
+                    value="informative"
+                    id="informative"
+                    checked={instaType === "informative"}
+                    onChange={(e) => setInstaType(e.target.value)}
+                  />
+                  <label htmlFor="informative">Informative</label>
+                </span>
+                <span>
+                  <input
+                    type="radio"
+                    name="instaType"
+                    value="long"
+                    id="long"
+                    checked={instaType === "long"}
+                    onChange={(e) => setInstaType(e.target.value)}
+                  />
+                  <label htmlFor="long">Long</label>
+                </span>
+                <span>
+                  <input
+                    type="radio"
+                    name="instaType"
+                    value="uplifting"
+                    id="uplifting"
+                    checked={instaType === "uplifting"}
+                    onChange={(e) => setInstaType(e.target.value)}
+                  />
+                  <label htmlFor="uplifting">Uplifting</label>
+                </span>
 
-              <span>
-                <input
-                  type="radio"
-                  name="instaType"
-                  value="funny"
-                  id="funny"
-                  checked={instaType === "funny"}
-                  onChange={(e) => setInstaType(e.target.value)}
-                />
-                <label htmlFor="funny">Funny</label>
-              </span>
-              <span>
-                <input
-                  type="radio"
-                  name="instaType"
-                  value="informative"
-                  id="informative"
-                  checked={instaType === "informative"}
-                  onChange={(e) => setInstaType(e.target.value)}
-                />
-                <label htmlFor="informative">Informative</label>
-              </span>
-              <span>
-                <input
-                  type="radio"
-                  name="instaType"
-                  value="long"
-                  id="long"
-                  checked={instaType === "long"}
-                  onChange={(e) => setInstaType(e.target.value)}
-                />
-                <label htmlFor="long">Long</label>
-              </span>
-              <span>
-                <input
-                  type="radio"
-                  name="instaType"
-                  value="uplifting"
-                  id="uplifting"
-                  checked={instaType === "uplifting"}
-                  onChange={(e) => setInstaType(e.target.value)}
-                />
-                <label htmlFor="uplifting">Uplifting</label>
-              </span>
-
-              <span>
-                <input
-                  type="radio"
-                  name="instaType"
-                  value="alt"
-                  id="alt"
-                  checked={instaType === "alt"}
-                  onChange={(e) => setInstaType(e.target.value)}
-                />
-                <label htmlFor="alt">alt text</label>
+                <span>
+                  <input
+                    type="radio"
+                    name="instaType"
+                    value="alt"
+                    id="alt"
+                    checked={instaType === "alt"}
+                    onChange={(e) => setInstaType(e.target.value)}
+                  />
+                  <label htmlFor="alt">alt text</label>
+                </span>
               </span>
             </div>
             <div className="size-fit justify-self-auto pt-5">{caption}</div>
